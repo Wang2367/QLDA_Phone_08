@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" compressed="false" pages="1">
+  <diagram id="page-1" name="Kiến trúc hệ thống">
+    <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1120" pageHeight="570" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="page-title" value="Kiến trúc Web POS và Android" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=29;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="15" width="1064" height="42" />
+        </mxCell>
+        <mxCell id="page-sub" value="PHONE-IMS-01  /  WBS 4.1  /  Kiến trúc logic  /  v1.0" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#516176;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="60" width="1064" height="28" />
+        </mxCell>
+        <mxCell id="web" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="39" y="116" width="270" height="150" />
+        </mxCell>
+        <mxCell id="web-title" value="Web quản trị và POS" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#193757;fontFamily=Segoe UI;fontSize=19;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="web">
+          <mxGeometry as="geometry" x="12" y="10" width="246" height="36" />
+        </mxCell>
+        <mxCell id="web-l0" value="Thu ngân · Thủ kho · Quản lý" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="web">
+          <mxGeometry as="geometry" x="12" y="53" width="246" height="29" />
+        </mxCell>
+        <mxCell id="web-l1" value="Hậu mãi · Quản trị hệ thống" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="web">
+          <mxGeometry as="geometry" x="12" y="82" width="246" height="29" />
+        </mxCell>
+        <mxCell id="api" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="380" y="171" width="360" height="230" />
+        </mxCell>
+        <mxCell id="api-title" value="Backend REST API" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#193757;fontFamily=Segoe UI;fontSize=19;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="api">
+          <mxGeometry as="geometry" x="12" y="10" width="336" height="36" />
+        </mxCell>
+        <mxCell id="api-l0" value="Xác thực và kiểm tra chi nhánh" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="api">
+          <mxGeometry as="geometry" x="12" y="53" width="336" height="29" />
+        </mxCell>
+        <mxCell id="api-l1" value="Danh mục · bán hàng · sổ tồn" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="api">
+          <mxGeometry as="geometry" x="12" y="82" width="336" height="29" />
+        </mxCell>
+        <mxCell id="api-l2" value="Điều chuyển · hậu mãi · báo cáo" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="api">
+          <mxGeometry as="geometry" x="12" y="111" width="336" height="29" />
+        </mxCell>
+        <mxCell id="api-l3" value="Ghi giao dịch và nhật ký" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="api">
+          <mxGeometry as="geometry" x="12" y="140" width="336" height="29" />
+        </mxCell>
+        <mxCell id="db" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="811" y="193" width="269" height="170" />
+        </mxCell>
+        <mxCell id="db-title" value="CSDL quan hệ" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#193757;fontFamily=Segoe UI;fontSize=19;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="db">
+          <mxGeometry as="geometry" x="12" y="10" width="245" height="36" />
+        </mxCell>
+        <mxCell id="db-l0" value="SKU · thiết bị · IMEI" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="db">
+          <mxGeometry as="geometry" x="12" y="53" width="245" height="29" />
+        </mxCell>
+        <mxCell id="db-l1" value="Chứng từ · sổ tồn · nhật ký" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="db">
+          <mxGeometry as="geometry" x="12" y="82" width="245" height="29" />
+        </mxCell>
+        <mxCell id="mobile" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="39" y="330" width="270" height="138" />
+        </mxCell>
+        <mxCell id="mobile-title" value="Ứng dụng Android" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#193757;fontFamily=Segoe UI;fontSize=19;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="mobile">
+          <mxGeometry as="geometry" x="12" y="10" width="246" height="36" />
+        </mxCell>
+        <mxCell id="mobile-l0" value="Đăng nhập · quét · tra cứu" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="mobile">
+          <mxGeometry as="geometry" x="12" y="53" width="246" height="29" />
+        </mxCell>
+        <mxCell id="mobile-l1" value="Trạng thái kết nối và kiểm kê" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="mobile">
+          <mxGeometry as="geometry" x="12" y="82" width="246" height="29" />
+        </mxCell>
+        <mxCell id="edge1" value="" source="web" target="api" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.75;entryX=0;entryY=0.25;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="344" y="228.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge2" value="" source="mobile" target="api" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.25;entryX=0;entryY=0.82;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="344" y="364.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge3" value="" source="api" target="db" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.48;entryX=0;entryY=0.52;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;endArrow=block;endFill=1;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="noteA" value="Client gọi API qua HTTPS. API kiểm tra quyền và cập nhật trạng thái." style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="29" y="489" width="1060" height="28" />
+        </mxCell>
+        <mxCell id="noteB" value="Mỗi xác nhận hợp lệ ghi chứng từ, sổ tồn và nhật ký trong cùng giao dịch CSDL." style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="29" y="522" width="1060" height="28" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

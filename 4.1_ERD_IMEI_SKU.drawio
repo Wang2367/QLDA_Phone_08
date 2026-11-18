@@ -1,0 +1,537 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" compressed="false" pages="2">
+  <diagram id="page-1" name="Danh mục và tồn kho">
+    <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1440" pageHeight="788" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="page-title" value="ERD 01   Danh mục và tồn kho" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=29;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="15" width="1384" height="42" />
+        </mxCell>
+        <mxCell id="page-sub" value="PHONE-IMS-01  /  WBS 4.1  /  Mô hình dữ liệu logic  /  v1.0" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#516176;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="60" width="1384" height="28" />
+        </mxCell>
+        <mxCell id="products" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="118" width="270" height="108" />
+        </mxCell>
+        <mxCell id="products.label" value="products" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="products">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="products.r0" value="PK  product_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="products">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="products.r1" value="name" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="products">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="products.r2" value="tracking_type" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="products">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="skus" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="387" y="118" width="270" height="133" />
+        </mxCell>
+        <mxCell id="skus.label" value="skus" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="skus">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="skus.r0" value="PK  sku_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="skus">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="skus.r1" value="FK  product_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="skus">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="skus.r2" value="UK  sku_code" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="skus">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="skus.r3" value="variant_name, sale_price" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="skus">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="devices" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="756" y="118" width="270" height="133" />
+        </mxCell>
+        <mxCell id="devices.label" value="devices" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="devices">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="devices.r0" value="PK  device_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="devices">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="devices.r1" value="FK  sku_id, branch_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="devices">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="devices.r2" value="UK*  serial" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="devices">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="devices.r3" value="status" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="devices">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="device_imeis" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1110" y="118" width="270" height="108" />
+        </mxCell>
+        <mxCell id="device_imeis.label" value="device_imeis" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="device_imeis">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="device_imeis.r0" value="PK  imei_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="device_imeis">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="device_imeis.r1" value="FK  device_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="device_imeis">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="device_imeis.r2" value="UK  imei" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="device_imeis">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="branches" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="376" width="270" height="108" />
+        </mxCell>
+        <mxCell id="branches.label" value="branches" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="branches">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="branches.r0" value="PK  branch_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="branches">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="branches.r1" value="UK  branch_code" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="branches">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="branches.r2" value="name" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="branches">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="stock_balances" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="387" y="376" width="270" height="108" />
+        </mxCell>
+        <mxCell id="stock_balances.label" value="stock_balances" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="stock_balances">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="stock_balances.r0" value="PK/FK  branch_id, sku_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="stock_balances">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="stock_balances.r1" value="available_qty" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="stock_balances">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="stock_balances.r2" value="quarantined_qty" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="stock_balances">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="user_branch_roles" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="756" y="376" width="270" height="108" />
+        </mxCell>
+        <mxCell id="user_branch_roles.label" value="user_branch_roles" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="user_branch_roles">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="user_branch_roles.r0" value="PK/FK  user_id, branch_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="user_branch_roles">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="user_branch_roles.r1" value="PK/FK  role_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="user_branch_roles">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="user_branch_roles.r2" value="active" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="user_branch_roles">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="roles" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1110" y="376" width="270" height="108" />
+        </mxCell>
+        <mxCell id="roles.label" value="roles" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="roles">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="roles.r0" value="PK  role_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="roles">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="roles.r1" value="UK  role_code" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="roles">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="roles.r2" value="permission_set" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="roles">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="users" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1110" y="566" width="270" height="108" />
+        </mxCell>
+        <mxCell id="users.label" value="users" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="users">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="users.r0" value="PK  user_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="users">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="users.r1" value="UK  username" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="users">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="users.r2" value="password_hash, active" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="users">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="edge1" value="" source="products" target="skus" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERoneToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge2" value="" source="skus" target="devices" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERzeroToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge3" value="" source="devices" target="device_imeis" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERoneToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge4" value="" source="skus" target="stock_balances" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERzeroToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge5" value="" source="branches" target="stock_balances" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERzeroToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge6" value="" source="branches" target="devices" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=0.24;exitY=0;entryX=0.28;entryY=1;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERzeroToOne;endArrow=ERzeroToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="104.8" y="304" />
+              <mxPoint x="831.6" y="304" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge7" value="" source="branches" target="user_branch_roles" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=0.55;exitY=1;entryX=0.26;entryY=1;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERzeroToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="188.5" y="530" />
+              <mxPoint x="826.2" y="530" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge8" value="" source="roles" target="user_branch_roles" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=0;exitY=0.5;entryX=1;entryY=0.5;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERzeroToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge9" value="" source="users" target="user_branch_roles" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=0;exitY=0.26;entryX=0.82;entryY=1;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERzeroToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="977.4" y="594.08" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="note1" value="PK khóa chính    FK khóa ngoại    UK duy nhất    * Serial duy nhất khi có giá trị" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="32" y="576" width="1000" height="30" />
+        </mxCell>
+        <mxCell id="note2" value="Tồn điện thoại theo thiết bị. stock_balances lưu tồn phụ kiện theo SKU." style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="32" y="615" width="1000" height="28" />
+        </mxCell>
+        <mxCell id="note3" value="Thiết bị có thể chưa gán chi nhánh khi mới đăng ký; trạng thái khả dụng cần chi nhánh." style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="32" y="649" width="1000" height="28" />
+        </mxCell>
+        <mxCell id="note4" value="Tồn đang chuyển lấy từ chi tiết điều chuyển đã xuất và chưa nhận, xem trang 02." style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="32" y="683" width="1100" height="28" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page-2" name="Giao dịch và hậu mãi">
+    <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1440" pageHeight="1005" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="page-title" value="ERD 02   Giao dịch và hậu mãi" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=29;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="15" width="1384" height="42" />
+        </mxCell>
+        <mxCell id="page-sub" value="PHONE-IMS-01  /  WBS 4.1  /  Các FK đến SKU, thiết bị, chi nhánh và người dùng tham chiếu trang 01" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#516176;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="60" width="1384" height="28" />
+        </mxCell>
+        <mxCell id="receipts" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="105" width="270" height="133" />
+        </mxCell>
+        <mxCell id="receipts.label" value="receipts" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="receipts">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="receipts.r0" value="PK  receipt_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="receipts">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="receipts.r1" value="FK  branch_id, confirmed_by" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="receipts">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="receipts.r2" value="document_no, status" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="receipts">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="receipts.r3" value="exception_note" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="receipts">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="receipt_lines" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="387" y="105" width="270" height="133" />
+        </mxCell>
+        <mxCell id="receipt_lines.label" value="receipt_lines" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="receipt_lines">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="receipt_lines.r0" value="PK  receipt_line_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="receipt_lines">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="receipt_lines.r1" value="FK  receipt_id, sku_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="receipt_lines">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="receipt_lines.r2" value="FK?  device_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="receipt_lines">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="receipt_lines.r3" value="expected_qty, accepted_qty" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="receipt_lines">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="stock_movements" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="756" y="105" width="270" height="158" />
+        </mxCell>
+        <mxCell id="stock_movements.label" value="stock_movements" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="stock_movements">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="stock_movements.r0" value="PK  movement_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="stock_movements">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="stock_movements.r1" value="FK  branch_id, sku_id, actor_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="stock_movements">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="stock_movements.r2" value="FK?  device_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="stock_movements">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="stock_movements.r3" value="source_type, source_id, leg" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="stock_movements">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="stock_movements.r4" value="delta, bucket, occurred_at" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="stock_movements">
+          <mxGeometry as="geometry" x="0" y="133" width="269" height="25" />
+        </mxCell>
+        <mxCell id="request_keys" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1110" y="105" width="270" height="133" />
+        </mxCell>
+        <mxCell id="request_keys.label" value="request_keys" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="request_keys">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="request_keys.r0" value="PK  request_key_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="request_keys">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="request_keys.r1" value="UK  actor_id + action + key" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="request_keys">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="request_keys.r2" value="request_hash, response, status" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="request_keys">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="request_keys.r3" value="FK  actor_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="request_keys">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="sales_orders" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="305" width="270" height="158" />
+        </mxCell>
+        <mxCell id="sales_orders.label" value="sales_orders" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="sales_orders">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="sales_orders.r0" value="PK  sale_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="sales_orders">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="sales_orders.r1" value="FK  branch_id, cashier_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="sales_orders">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="sales_orders.r2" value="payment_status, method" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="sales_orders">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="sales_orders.r3" value="UK?  invoice_no" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="sales_orders">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="sales_orders.r4" value="paid_at" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="sales_orders">
+          <mxGeometry as="geometry" x="0" y="133" width="269" height="25" />
+        </mxCell>
+        <mxCell id="sale_lines" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="387" y="305" width="270" height="133" />
+        </mxCell>
+        <mxCell id="sale_lines.label" value="sale_lines" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="sale_lines">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="sale_lines.r0" value="PK  sale_line_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="sale_lines">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="sale_lines.r1" value="FK  sale_id, sku_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="sale_lines">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="sale_lines.r2" value="FK?  device_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="sale_lines">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="sale_lines.r3" value="qty, unit_price" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="sale_lines">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="warranty_tickets" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="756" y="305" width="270" height="133" />
+        </mxCell>
+        <mxCell id="warranty_tickets.label" value="warranty_tickets" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_tickets">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="warranty_tickets.r0" value="PK  ticket_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_tickets">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="warranty_tickets.r1" value="FK  sale_line_id, device_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_tickets">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="warranty_tickets.r2" value="FK  policy_id, opened_by" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_tickets">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="warranty_tickets.r3" value="status, opened_at" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_tickets">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="warranty_events" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1110" y="305" width="270" height="133" />
+        </mxCell>
+        <mxCell id="warranty_events.label" value="warranty_events" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_events">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="warranty_events.r0" value="PK  event_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_events">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="warranty_events.r1" value="FK  ticket_id, actor_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_events">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="warranty_events.r2" value="status, handover, occurred_at" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_events">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="warranty_events.r3" value="result_note" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_events">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="returns" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="507" width="270" height="108" />
+        </mxCell>
+        <mxCell id="returns.label" value="returns" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="returns">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="returns.r0" value="PK  return_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="returns">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="returns.r1" value="FK  sale_id, approved_by*" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="returns">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="returns.r2" value="reason, status, approved_at" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="returns">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="return_lines" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="387" y="507" width="270" height="108" />
+        </mxCell>
+        <mxCell id="return_lines.label" value="return_lines" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="return_lines">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="return_lines.r0" value="PK  return_line_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="return_lines">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="return_lines.r1" value="FK  return_id, sale_line_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="return_lines">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="return_lines.r2" value="qty, condition, disposition" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="return_lines">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="warranty_policies" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="756" y="507" width="270" height="133" />
+        </mxCell>
+        <mxCell id="warranty_policies.label" value="warranty_policies" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_policies">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="warranty_policies.r0" value="PK  policy_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_policies">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="warranty_policies.r1" value="FK  sku_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_policies">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="warranty_policies.r2" value="period_months, coverage" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_policies">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="warranty_policies.r3" value="exclusions, active_from" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="warranty_policies">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="audit_events" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1110" y="507" width="270" height="133" />
+        </mxCell>
+        <mxCell id="audit_events.label" value="audit_events" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="audit_events">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="audit_events.r0" value="PK  audit_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="audit_events">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="audit_events.r1" value="FK  actor_id, branch_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="audit_events">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="audit_events.r2" value="entity_type, entity_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="audit_events">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="audit_events.r3" value="action, occurred_at" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="audit_events">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="transfers" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="704" width="270" height="133" />
+        </mxCell>
+        <mxCell id="transfers.label" value="transfers" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfers">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="transfers.r0" value="PK  transfer_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfers">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="transfers.r1" value="FK  from_branch, to_branch" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfers">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="transfers.r2" value="FK  approved_by*" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfers">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="transfers.r3" value="status, sent_at, received_at" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfers">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="transfer_lines" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="387" y="704" width="270" height="133" />
+        </mxCell>
+        <mxCell id="transfer_lines.label" value="transfer_lines" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfer_lines">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="transfer_lines.r0" value="PK  transfer_line_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfer_lines">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="transfer_lines.r1" value="FK  transfer_id, sku_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfer_lines">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="transfer_lines.r2" value="FK?  device_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfer_lines">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="transfer_lines.r3" value="qty_sent, qty_received" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfer_lines">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="transfer_discrepancies" value="" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=#A1AFC0;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="756" y="704" width="270" height="133" />
+        </mxCell>
+        <mxCell id="transfer_discrepancies.label" value="transfer_discrepancies" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#193757;strokeColor=none;fontColor=#FFFFFF;fontFamily=Segoe UI;fontSize=17;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfer_discrepancies">
+          <mxGeometry as="geometry" x="0" y="0" width="270" height="33" />
+        </mxCell>
+        <mxCell id="transfer_discrepancies.r0" value="PK  report_id" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfer_discrepancies">
+          <mxGeometry as="geometry" x="0" y="33" width="269" height="25" />
+        </mxCell>
+        <mxCell id="transfer_discrepancies.r1" value="FK  transfer_line_id, resolved_by*" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfer_discrepancies">
+          <mxGeometry as="geometry" x="0" y="58" width="269" height="25" />
+        </mxCell>
+        <mxCell id="transfer_discrepancies.r2" value="qty_delta, note" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#EEF4F9;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfer_discrepancies">
+          <mxGeometry as="geometry" x="0" y="83" width="269" height="25" />
+        </mxCell>
+        <mxCell id="transfer_discrepancies.r3" value="resolution, resolved_at" style="rounded=0;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=15;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="transfer_discrepancies">
+          <mxGeometry as="geometry" x="0" y="108" width="269" height="25" />
+        </mxCell>
+        <mxCell id="edge1" value="" source="receipts" target="receipt_lines" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERoneToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge2" value="" source="sales_orders" target="sale_lines" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERoneToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge3" value="" source="sale_lines" target="warranty_tickets" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERzeroToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge4" value="" source="warranty_tickets" target="warranty_events" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERoneToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge5" value="" source="sales_orders" target="returns" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=0.25;exitY=1;entryX=0.25;entryY=0;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERzeroToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge6" value="" source="sale_lines" target="return_lines" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=0.62;exitY=1;entryX=0.62;entryY=0;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERzeroToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge7" value="" source="returns" target="return_lines" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERoneToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge8" value="" source="warranty_policies" target="warranty_tickets" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=0.63;exitY=0;entryX=0.63;entryY=1;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERzeroToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge9" value="" source="transfers" target="transfer_lines" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERoneToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="edge10" value="" source="transfer_lines" target="transfer_discrepancies" parent="1" edge="1" style="edgeStyle=none;orthogonal=1;rounded=0;html=0;strokeWidth=1.6;strokeColor=#49657F;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;fontFamily=Segoe UI;fontColor=#193757;fontSize=12;labelBackgroundColor=#FFFFFF;startArrow=ERmandOne;endArrow=ERzeroToMany;startSize=9;endSize=9;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="note1" value="PK khóa chính    FK khóa ngoại    UK duy nhất    ? / * Có thể trống theo loại hàng hoặc trạng thái chứng từ" style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=1;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="32" y="856" width="1350" height="30" />
+        </mxCell>
+        <mxCell id="note2" value="Sổ tồn giữ loại và ID dòng chứng từ. Một dòng có thể sinh nhiều biến động (leg)." style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="32" y="896" width="1376" height="28" />
+        </mxCell>
+        <mxCell id="note3" value="request_keys chống ghi lặp; audit_events truy vết phê duyệt, đổi trạng thái IMEI, điều chỉnh tồn và bảo hành." style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="32" y="928" width="1376" height="28" />
+        </mxCell>
+        <mxCell id="note4" value="Phiếu kiểm kê điều chỉnh (Should) dùng bổ sung sau khi chốt thay đổi phạm vi; xem đặc tả API và RTM." style="rounded=0;whiteSpace=wrap;html=0;fillColor=none;strokeColor=none;fontColor=#18283A;fontFamily=Segoe UI;fontSize=16;fontStyle=0;align=left;verticalAlign=middle;spacingLeft=8;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="32" y="960" width="1376" height="28" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
