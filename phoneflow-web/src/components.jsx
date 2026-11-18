@@ -121,14 +121,21 @@ export function Modal({ title, description, children, onClose, wide = false }) {
 
 export function ActionForm({ children, actionLabel, onSubmit, onClose, disabled = false }) {
   const [error, setError] = useState('')
-  return <form className="action-form" onSubmit={(event) => {
+  const [busy, setBusy] = useState(false)
+  const busyRef = useRef(false)
+  return <form className="action-form" onSubmit={async (event) => {
     event.preventDefault()
+    if (busyRef.current) return
+    busyRef.current = true
+    setBusy(true)
+    const form = new FormData(event.currentTarget)
     setError('')
-    try { onSubmit(new FormData(event.currentTarget)) } catch (issue) { setError(issue.message) }
+    try { await onSubmit(form) } catch (issue) { setError(issue.message) }
+    finally { setBusy(false); busyRef.current = false }
   }}>
     {children}
     {error && <p className="form-error" role="alert">{error}</p>}
-    <div className="form-actions"><Button onClick={onClose}>Hủy</Button><Button type="submit" variant="primary" icon={Check} disabled={disabled}>{actionLabel}</Button></div>
+    <div className="form-actions"><Button onClick={onClose}>Hủy</Button><Button type="submit" variant="primary" icon={Check} disabled={disabled || busy}>{busy ? 'Đang gửi…' : actionLabel}</Button></div>
   </form>
 }
 

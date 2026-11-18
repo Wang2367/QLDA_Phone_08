@@ -1,36 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { request } from './api.js'
+import { revenuePoints, reportDay } from './report-chart.js'
 import {
   Activity, ArrowRight, Boxes, CalendarDays, CircleCheck, PackagePlus, Search,
   ShieldCheck, ShoppingBag, ShoppingCart, Wallet,
 } from 'lucide-react'
-import { clock, dayAgo, initials, isPhone, money, number, shortDay, stock } from './data.js'
+import { clock, initials, isPhone, money, number, shortDay, stock } from './data.js'
 import { Button, Delta, Empty, PageHeading, PanelHeading, Select, Status } from './components.jsx'
 
-function getRange(rows, first, last = 0) {
-  const start = new Date(dayAgo(first, 0)).getTime()
-  const end = new Date(dayAgo(last, 23, 59)).getTime() + 60000
-  return rows.filter((row) => {
-    const time = new Date(row.date).getTime()
-    return time >= start && time < end
-  })
-}
-
-const revenue = (orders) => orders.reduce((sum, order) => sum + order.total, 0)
 const growth = (value, old) => old > 0 ? Math.round((value / old - 1) * 1000) / 10 : null
 
-function RevenueChart({ orders, days }) {
+function RevenueChart({ report }) {
   const [active, setActive] = useState(null)
-  const count = days === 7 ? 7 : 6
-  const step = days / count
-  const points = Array.from({ length: count }, (_, index) => {
-    const first = days - index * step - 1
-    const last = first - step + 1
-    return {
-      label: shortDay.format(new Date(dayAgo(last))),
-      current: revenue(getRange(orders, first, last)),
-      previous: revenue(getRange(orders, first + days, last + days)),
-    }
-  })
+  if (!report) return <section className="panel chart-panel"><Empty title="Đang tải báo cáo doanh thu…" /></section>
+  const points = revenuePoints(report)
   const largest = Math.max(...points.flatMap((point) => [point.current, point.previous]), 1000000)
   const tick = Math.ceil(largest / 4 / 5000000) * 5000000
   const max = tick * 4
@@ -42,7 +25,7 @@ function RevenueChart({ orders, days }) {
       <div className="chart-axis" aria-hidden="true">{[4, 3, 2, 1, 0].map((i) => <span key={i}>{i ? number(tick * i / 1000000) + ' tr' : '0'}</span>)}</div>
       <div className="chart-area">
         <div className="chart-lines" aria-hidden="true">{[4, 3, 2, 1, 0].map((i) => <i key={i} />)}</div>
-        <div className="chart-bars" style={{ '--bucket-count': count }} aria-label="Biểu đồ doanh thu kỳ này và kỳ trước">
+        <div className="chart-bars" style={{ '--bucket-count': points.length }} aria-label="Biểu đồ doanh thu kỳ này và kỳ trước">
           {points.map((point, index) => <div className="chart-group" key={point.label}>
             <button type="button" className="bar-pair" onMouseEnter={() => setActive(index)} onMouseLeave={() => setActive(null)}
               onFocus={() => setActive(index)} onBlur={() => setActive(null)} onClick={() => setActive(active === index ? null : index)}
@@ -97,21 +80,29 @@ function Orders({ items, onOpen, navigate }) {
 
 export default function Dashboard({ data, branchId, navigate, openReceipt }) {
   const [days, setDays] = useState(7)
+  const [analytics, setAnalytics] = useState(null)
+  const [reportError, setReportError] = useState('')
+  useEffect(() => {
+    let active = true
+    request('/reports/sales?days=' + days).then((result) => { if (active) { setAnalytics(result); setReportError('') } })
+      .catch((error) => { if (active) setReportError(error.message) })
+    return () => { active = false }
+  }, [days, branchId, data])
   const branchOrders = data.orders.filter((order) => order.branchId === branchId)
-  const orders = getRange(branchOrders, days - 1).sort((a, b) => b.date.localeCompare(a.date))
-  const previous = getRange(branchOrders, days * 2 - 1, days)
+  const report = analytics?.days === days && analytics.branchId === branchId ? analytics : null
+  const orders = report ? branchOrders.filter((order) => order.date >= report.period.startUtc && order.date < report.period.endUtc).sort((a, b) => b.date.localeCompare(a.date)) : []
   const productStock = data.products.map((product) => ({ product, ...stock(data, product.id, branchId) }))
   const total = productStock.reduce((sum, row) => sum + row.available, 0)
   const low = productStock.filter((row) => row.available < 5).length
   const tickets = data.services.filter((ticket) => ticket.branchId === branchId && ticket.type === 'warranty' && ticket.status !== 'done')
   const metrics = [
-    { label: 'Doanh thu', Value: money(revenue(orders)), Icon: Wallet, tone: 'coral', delta: growth(revenue(orders), revenue(previous)), context: 'so với kỳ trước' },
-    { label: 'Đơn đã thanh toán', Value: number(orders.length), Icon: ShoppingBag, tone: 'mint', delta: growth(orders.length, previous.length), context: 'so với kỳ trước' },
+    { label: 'Doanh thu', Value: report ? money(report.current.total) : '—', Icon: Wallet, tone: 'coral', delta: report ? growth(report.current.total, report.previous.total) : null, context: 'so với kỳ trước' },
+    { label: 'Đơn đã thanh toán', Value: report ? number(report.current.orders) : '—', Icon: ShoppingBag, tone: 'mint', delta: report ? growth(report.current.orders, report.previous.orders) : null, context: 'so với kỳ trước' },
     { label: 'Tồn khả dụng', Value: number(total), Icon: Boxes, tone: 'lilac', delta: null, context: low + ' SKU có tồn dưới 5' },
     { label: 'Bảo hành đang mở', Value: number(tickets.length), Icon: ShieldCheck, tone: 'amber', delta: null, context: tickets.filter((ticket) => ticket.status === 'received').length + ' phiếu mới tiếp nhận' },
   ]
-  const start = shortDay.format(new Date(dayAgo(days - 1)))
-  const end = shortDay.format(new Date())
+  const start = report ? reportDay(report.period.from) : '…'
+  const end = report ? reportDay(report.period.to) : '…'
   return <>
     <PageHeading title="Tổng quan" description="Theo dõi bán hàng, tồn kho và bảo hành tại chi nhánh.">
       <Select label="Kỳ báo cáo" icon={CalendarDays} value={days} onChange={(event) => setDays(Number(event.target.value))}>
@@ -119,6 +110,7 @@ export default function Dashboard({ data, branchId, navigate, openReceipt }) {
       </Select>
       <Button variant="primary" icon={ShoppingCart} onClick={() => navigate('pos')}>Tạo đơn bán</Button>
     </PageHeading>
+    {reportError && <p className="form-error" role="alert">{reportError}</p>}
     <div className="range-label"><Activity size={14} aria-hidden="true" /> Số liệu từ {start} đến {end}</div>
     <div className="metrics">
       {metrics.map(({ label, Value, Icon, tone, delta, context }) => <section className="panel metric" key={label}>
@@ -128,7 +120,7 @@ export default function Dashboard({ data, branchId, navigate, openReceipt }) {
       </section>)}
     </div>
     <div className="dashboard-grid">
-      <RevenueChart orders={branchOrders} days={days} />
+      <RevenueChart report={report} />
       <StockChart productStock={productStock} total={total} navigate={navigate} />
       <Orders items={orders.slice(0, 5)} onOpen={openReceipt} navigate={navigate} />
       <section className="panel quick-panel">

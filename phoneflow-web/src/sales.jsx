@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { request, post } from './api.js'
 import {
   ArrowLeft, ArrowRight, Check, ChevronLeft, ChevronRight, ClipboardList, CreditCard, Minus,
   PackagePlus, Plus, ScanLine, Trash2,
@@ -20,18 +21,20 @@ export function CategoryFilter({ category, setCategory }) {
   ]} />
 }
 
-function ProductForm({ commit, onClose }) {
-  return <Modal title="Thêm sản phẩm" description="Tạo mã SKU trong danh mục. Nhập hàng tại trang Kho." onClose={onClose}>
-    <ActionForm actionLabel="Lưu sản phẩm" onClose={onClose} onSubmit={(form) => {
-      commit((draft) => addProduct(draft, Object.fromEntries(form)), 'Đã thêm sản phẩm vào danh mục.')
+function ProductForm({ commit, onClose, initial }) {
+  return <Modal title={initial ? 'Sửa sản phẩm' : 'Thêm sản phẩm'} description="Quản lý mã SKU. Nhập hàng tại trang Kho." onClose={onClose}>
+    <ActionForm actionLabel="Lưu sản phẩm" onClose={onClose} onSubmit={async (form) => {
+      const values = { ...Object.fromEntries(form), category: initial?.category || form.get('category'), active: form.get('active') !== 'false' }
+      await commit((draft) => initial ? request('/skus/' + initial.id, { method: 'PATCH', body: values }) : addProduct(draft, values), 'Đã lưu danh mục.')
       onClose()
     }}>
-      <Field label="Tên sản phẩm"><input name="name" required maxLength={90} autoFocus placeholder="Ví dụ: iPhone 16 Pro 256GB" /></Field>
+      <Field label="Tên sản phẩm"><input name="name" defaultValue={initial?.name} required maxLength={90} autoFocus placeholder="Ví dụ: iPhone 16 Pro 256GB" /></Field>
       <div className="form-grid">
-        <Field label="Mã SKU"><input name="sku" required maxLength={30} placeholder="IPH-16P-256" /></Field>
-        <Field label="Thương hiệu"><input name="brand" required maxLength={35} placeholder="Apple" /></Field>
-        <Field label="Loại sản phẩm"><Select name="category" label="Loại sản phẩm">{categories.map((name) => <option key={name}>{name}</option>)}</Select></Field>
-        <Field label="Giá bán (₫)"><input name="price" type="number" min={1} step={1} required placeholder="0" /></Field>
+        <Field label="Mã SKU"><input name="sku" defaultValue={initial?.sku} required maxLength={30} placeholder="IPH-16P-256" /></Field>
+        <Field label="Thương hiệu"><input name="brand" defaultValue={initial?.brand} required maxLength={35} placeholder="Apple" /></Field>
+        <Field label="Loại sản phẩm"><Select name="category" label="Loại sản phẩm" defaultValue={initial?.category} disabled={Boolean(initial)}>{categories.map((name) => <option key={name}>{name}</option>)}</Select></Field>
+        <Field label="Giá bán (₫)"><input name="price" defaultValue={initial?.price} type="number" min={1} step={1} required placeholder="0" /></Field>
+        {initial && <Field label="Sử dụng"><Select name="active" label="Sử dụng" defaultValue={String(initial.active)}><option value="true">Đang sử dụng</option><option value="false">Ngừng sử dụng</option></Select></Field>}
       </div>
     </ActionForm>
   </Modal>
@@ -62,13 +65,14 @@ function ProductDetails({ product, data, branchId, initialQuery, onClose }) {
   </Modal>
 }
 
-export default function Products({ data, branchId, params, commit }) {
+export default function Products({ data, branchId, params, commit, permissions }) {
   const [query, setQuery] = useState(params.get('q') ?? '')
   const [category, setCategory] = useState('all')
   const [availability, setAvailability] = useState('all')
   const [page, setPage] = useState(1)
   const [selected, setSelected] = useState(params.get('product'))
   const [add, setAdd] = useState(false)
+  const [edit, setEdit] = useState(null)
   const items = matchingProducts(data, branchId, query)
     .filter((product) => category === 'all' || product.category === category)
     .map((product) => ({ product, available: stock(data, product.id, branchId).available }))
@@ -79,7 +83,7 @@ export default function Products({ data, branchId, params, commit }) {
   const selectedProduct = getProduct(data, selected)
   return <>
     <PageHeading title="Quản lý sản phẩm" description="Danh mục điện thoại, phụ kiện và thiết bị theo SKU, IMEI.">
-      <Button variant="primary" icon={PackagePlus} onClick={() => setAdd(true)}>Thêm sản phẩm</Button>
+      {permissions.includes('catalog') && <Button variant="primary" icon={PackagePlus} onClick={() => setAdd(true)}>Thêm sản phẩm</Button>}
     </PageHeading>
     <section className="panel records-panel">
       <div className="records-toolbar">
@@ -96,8 +100,8 @@ export default function Products({ data, branchId, params, commit }) {
         <tbody>{rows.map(({ product, available }) => <tr key={product.id}>
           <td><ProductName product={product} /></td><td>{product.category}</td><td className="strong">{number(available)}</td>
           <td className="align-right strong">{money(product.price)}</td>
-          <td><Status value={available === 0 ? ['Hết hàng', 'neutral'] : available < 5 ? ['Sắp hết', 'amber'] : ['Còn hàng', 'green']} /></td>
-          <td><button className="row-go" aria-label={'Xem ' + product.name} onClick={() => setSelected(product.id)}><ArrowRight size={17} /></button></td>
+          <td><Status value={!product.active ? ['Ngừng sử dụng', 'neutral'] : available === 0 ? ['Hết hàng', 'neutral'] : available < 5 ? ['Sắp hết', 'amber'] : ['Còn hàng', 'green']} /></td>
+          <td>{permissions.includes('catalog') && <Button onClick={() => setEdit(product)}>Sửa</Button>}<button className="row-go" aria-label={'Xem ' + product.name} onClick={() => setSelected(product.id)}><ArrowRight size={17} /></button></td>
         </tr>)}</tbody>
       </table></div> : <Empty title="Không tìm thấy sản phẩm">Thử từ khóa hoặc bộ lọc khác.</Empty>}
       <div className="pagination">
@@ -107,6 +111,7 @@ export default function Products({ data, branchId, params, commit }) {
       </div>
     </section>
     {add && <ProductForm commit={commit} onClose={() => setAdd(false)} />}
+    {edit && <ProductForm commit={commit} initial={edit} onClose={() => setEdit(null)} />}
     {selectedProduct && <ProductDetails product={selectedProduct} data={data} branchId={branchId}
       initialQuery={matchingProducts(data, branchId, query).includes(selectedProduct) && ![selectedProduct.name, selectedProduct.sku, selectedProduct.brand].some((value) => includes(value, query)) ? query : ''}
       onClose={() => setSelected(null)} />}
@@ -116,7 +121,7 @@ export default function Products({ data, branchId, params, commit }) {
 function Payment({ total, onClose, onPay, customer }) {
   return <Modal title="Thanh toán mô phỏng" description={customer.trim() || 'Khách lẻ'} onClose={onClose}>
     <div className="payment-total"><span>Tổng thanh toán</span><strong>{money(total)}</strong></div>
-    <ActionForm actionLabel="Xác nhận thanh toán" onClose={onClose} onSubmit={(form) => onPay(form.get('method'), form.get('result') === 'failure')}>
+    <ActionForm actionLabel="Xác nhận thanh toán" onClose={onClose} onSubmit={async (form) => onPay(form.get('method'), form.get('result') === 'failure')}>
       <Field label="Phương thức thanh toán"><Select name="method" label="Phương thức thanh toán">
         {['Tiền mặt', 'Chuyển khoản', 'Thẻ'].map((method) => <option key={method}>{method}</option>)}
       </Select></Field>
@@ -155,7 +160,7 @@ export function PointOfSale({ data, branchId, params, commit, notify, openReceip
     try { sessionStorage.setItem(cartKey(branchId), JSON.stringify(cart)) } catch { /* Session storage is optional. */ }
   }, [cart, branchId])
 
-  const items = matchingProducts(data, branchId, query).filter((product) => category === 'all' || product.category === category)
+  const items = matchingProducts(data, branchId, query).filter((product) => product.active && (category === 'all' || product.category === category))
   const lines = cart.map((item) => ({ ...item, product: getProduct(data, item.productId) })).filter((line) => line.product)
   const total = lines.reduce((sum, item) => sum + item.product.price * item.qty, 0)
   const quantity = lines.reduce((sum, item) => sum + item.qty, 0)
@@ -230,8 +235,8 @@ export function PointOfSale({ data, branchId, params, commit, notify, openReceip
           setDeviceProduct(null)
         }}><span className="metric-icon lilac"><ScanLine size={18} /></span><span><strong>{device.serial}</strong><small>{device.imeis.join(' · ')}</small></span><Check size={17} /></button>)}</div>
     </Modal>}
-    {paying && <Payment customer={customer} total={total} onClose={() => setPaying(false)} onPay={(method, failure) => {
-      const order = commit((draft) => checkout(draft, branchId, lines.map(({ productId, deviceId, qty }) => ({ productId, deviceId, qty })), customer, method, failure),
+    {paying && <Payment customer={customer} total={total} onClose={() => setPaying(false)} onPay={async (method, failure) => {
+      const order = await commit((draft) => checkout(draft, branchId, lines.map(({ productId, deviceId, qty }) => ({ productId, deviceId, qty })), customer, method, failure),
         'Đã thanh toán và cập nhật tồn kho mô phỏng.')
       setCart([])
       setCustomer('')

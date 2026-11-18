@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import Counts from './counts.jsx'
+import Policies from './policies.jsx'
+import { request } from './api.js'
 import {
   ArrowDownToLine, ArrowLeftRight, ArrowRight, ArrowUpFromLine, ClipboardPlus,
   Package, ScanLine, ShieldPlus,
@@ -22,9 +25,9 @@ function StockForm({ mode, data, branchId, commit, onClose }) {
   const choices = data.devices.filter((device) => device.productId === productId && device.branchId === branchId && device.status === 'available')
   return <Modal title={transfer ? 'Tạo phiếu điều chuyển' : type} description={branchName(branchId)} onClose={onClose}>
     <ActionForm actionLabel={transfer ? 'Tạo phiếu' : 'Xác nhận ' + type.toLowerCase()} onClose={onClose}
-      onSubmit={(form) => {
+      onSubmit={async (form) => {
         const values = Object.fromEntries(form)
-        commit((draft) => transfer ? createTransfer(draft, branchId, values) : stockRecord(draft, branchId, { ...values, type }),
+        await commit((draft) => transfer ? createTransfer(draft, branchId, values) : stockRecord(draft, branchId, { ...values, type }),
           transfer ? 'Đã tạo phiếu chờ duyệt.' : 'Đã ghi phiếu và cập nhật tồn kho.')
         onClose()
       }}>
@@ -51,7 +54,7 @@ function StockForm({ mode, data, branchId, commit, onClose }) {
   </Modal>
 }
 
-function TransferDetail({ item, product, branchId, commit, onClose }) {
+export function TransferDetail({ item, product, branchId, commit, onClose, permissions = [], data }) {
   const [review, setReview] = useState(false)
   const action = item.from === branchId ? {
     pending: ['approve', 'Duyệt phiếu'], approved: ['dispatch', 'Xác nhận xuất'],
@@ -59,8 +62,10 @@ function TransferDetail({ item, product, branchId, commit, onClose }) {
     moving: ['receive', 'Xác nhận nhận'], review: ['reconcile', 'Hoàn tất đối soát'],
   }[item.status]
   const [code, label] = review ? ['report', 'Lưu biên bản'] : action ?? []
+  const allowed = !['approve', 'reconcile'].includes(code) || permissions.includes('approve')
   return <Modal key={item.id} title={'Phiếu ' + item.id} description={branchName(item.from) + ' → ' + branchName(item.to)} onClose={onClose}>
     <div className="detail-product"><ProductName product={product} /><Status value={transferStatus[item.status]} /></div>
+    {item.lines?.length > 1 && <div className="table-scroll"><table><thead><tr><th>Sản phẩm</th><th>SL</th></tr></thead><tbody>{item.lines.map((line) => <tr key={line.id}><td><ProductName product={getProduct(data, line.productId)} /></td><td>{line.qty}</td></tr>)}</tbody></table></div>}
     <dl className="detail-list">
       <div><dt>Số lượng</dt><dd>{number(item.qty)}</dd></div>
       <div><dt>Ngày tạo</dt><dd>{fullDay.format(new Date(item.date))}</dd></div>
@@ -68,8 +73,8 @@ function TransferDetail({ item, product, branchId, commit, onClose }) {
       {item.discrepancy && <div><dt>Biên bản chênh lệch</dt><dd>{item.discrepancy}</dd></div>}
       {item.resolution && <div><dt>Kết luận đối soát</dt><dd>{item.resolution}</dd></div>}
     </dl>
-    {action && <ActionForm actionLabel={label} onClose={onClose} onSubmit={(form) => {
-      commit((draft) => updateTransfer(draft, branchId, item.id, code, form.get('note') ?? ''), 'Đã cập nhật phiếu ' + item.id + '.')
+    {action && allowed && <ActionForm actionLabel={label} onClose={onClose} onSubmit={async (form) => {
+      await commit((draft) => updateTransfer(draft, branchId, item.id, code, form.get('note') ?? ''), 'Đã cập nhật phiếu ' + item.id + '.')
       onClose()
     }}>
       {code === 'receive' && <Button variant="ghost" onClick={() => setReview(true)}>Ghi nhận chênh lệch</Button>}
@@ -79,7 +84,7 @@ function TransferDetail({ item, product, branchId, commit, onClose }) {
   </Modal>
 }
 
-export function Warehouse({ data, branchId, params, commit }) {
+export function Warehouse({ data, branchId, params, commit, permissions }) {
   const initialMode = params.get('mode')
   const [tab, setTab] = useState(initialMode === 'receipt' ? 'movements' : 'stock')
   const [mode, setMode] = useState(initialMode === 'receipt' ? 'receipt' : null)
@@ -107,12 +112,13 @@ export function Warehouse({ data, branchId, params, commit }) {
     <section className="panel records-panel">
       <div className="records-toolbar">
         <Tabs label="Nghiệp vụ kho" value={tab} onChange={(value) => { setTab(value); setQuery('') }}
-          items={[{ id: 'stock', name: 'Tồn kho' }, { id: 'movements', name: 'Nhập / xuất' }, { id: 'transfers', name: 'Điều chuyển' }]} />
+          items={[{ id: 'stock', name: 'Tồn kho' }, { id: 'movements', name: 'Nhập / xuất' }, { id: 'transfers', name: 'Điều chuyển' }, { id: 'counts', name: 'Kiểm kê' }]} />
         <div className="filter-actions">
           <TextSearch label="Tìm trong kho" value={query} onChange={setQuery} placeholder={tab === 'stock' ? 'Tìm sản phẩm, SKU…' : 'Tìm mã phiếu, sản phẩm…'} />
           {tab === 'transfers' && <Button icon={ArrowLeftRight} onClick={() => setMode('transfer')}>Tạo phiếu</Button>}
         </div>
       </div>
+      {tab === 'counts' && <Counts data={data} commit={commit} permissions={permissions} />}
       {tab === 'stock' && (inventory.length ? <div className="table-scroll"><table>
         <thead><tr><th>Sản phẩm</th><th>Loại theo dõi</th><th className="align-right">Khả dụng</th><th className="align-right">Đang chuyển đi</th><th className="align-right">Cách ly</th></tr></thead>
         <tbody>{inventory.map(({ product, available, moving, quarantine }) => <tr key={product.id}>
@@ -137,7 +143,7 @@ export function Warehouse({ data, branchId, params, commit }) {
       </table></div> : <Empty title="Chưa có phiếu điều chuyển" />)}
     </section>
     {mode && <StockForm mode={mode} data={data} branchId={branchId} commit={commit} onClose={() => setMode(null)} />}
-    {transfer && <TransferDetail item={transfer} product={getProduct(data, transfer.productId)} branchId={branchId} commit={commit} onClose={() => setSelected(null)} />}
+    {transfer && <TransferDetail item={transfer} data={data} product={getProduct(data, transfer.productId)} branchId={branchId} commit={commit} permissions={permissions} onClose={() => setSelected(null)} />}
   </>
 }
 
@@ -145,14 +151,21 @@ function ServiceLookup({ type, data, branchId, commit, onClose, onCreated, initi
   const [query, setQuery] = useState(initialQuery ?? '')
   const [searched, setSearched] = useState(initialQuery ?? '')
   const [selection, setSelection] = useState('')
+  const [policies, setPolicies] = useState([])
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const hits = orderMatch(data, branchId, searched)
   const result = hits.find(({ order, index }) => [order.id, index].join(':') === selection)
   const hint = data.orders.find((order) => order.branchId === branchId)?.id
   return <Modal title={type === 'warranty' ? 'Tiếp nhận bảo hành' : 'Tạo phiếu đổi trả'}
     description="Tra cứu theo mã hóa đơn, IMEI hoặc serial của thiết bị." onClose={onClose} wide>
-    <form className="lookup-form" onSubmit={(event) => { event.preventDefault(); setSearched(query.trim()); setSelection('') }}>
+    <form className="lookup-form" onSubmit={async (event) => {
+      event.preventDefault(); setSearched(query.trim()); setSelection(''); setPolicies([]); setError(''); setLoading(true)
+      try { if (type === 'warranty') setPolicies(await request('/warranty/eligibility?q=' + encodeURIComponent(query.trim()))) }
+      catch(e) { setError(e.message) } finally { setLoading(false) }
+    }}>
       <TextSearch value={query} onChange={setQuery} label="Tra cứu hóa đơn, IMEI hoặc serial" placeholder={hint ? 'Ví dụ: ' + hint : 'Mã hóa đơn, IMEI hoặc serial…'} />
-      <Button type="submit" icon={ScanLine} variant="primary" disabled={!query.trim()}>Tra cứu</Button>
+      <Button type="submit" icon={ScanLine} variant="primary" disabled={!query.trim() || loading}>{loading ? 'Đang tra…' : 'Tra cứu'}</Button>
     </form>
     {searched && (hits.length ? <div className="device-list">{hits.map(({ order, line, index, device }) => {
       const key = [order.id, index].join(':')
@@ -161,9 +174,11 @@ function ServiceLookup({ type, data, branchId, commit, onClose, onCreated, initi
         <span>{order.customer}</span><ArrowRight size={16} />
       </button>
     })}</div> : <Empty title="Không tìm thấy giao dịch tại chi nhánh">Kiểm tra mã hoặc chọn đúng chi nhánh.</Empty>)}
+    {error && <p className="form-error" role="alert">{error}</p>}
+    {result && type === 'warranty' && policies.filter((p) => p.saleId === result.order.id && p.lineIndex === result.index).map((p) => <div className="android-result" key={p.id}><Status value={[p.eligible ? 'Trong hạn bảo hành' : 'Chưa đủ điều kiện', p.eligible ? 'green' : 'amber']} /><p>{p.reason}</p><p className="small muted">{p.coverage} · Loại trừ: {p.exclusions}</p><p className="small">Hết hạn {fullDay.format(new Date(p.expiresAt))}</p></div>)}
     {result && <ActionForm actionLabel={type === 'warranty' ? 'Tạo phiếu bảo hành' : 'Tạo phiếu đổi trả'} onClose={onClose}
-      onSubmit={(form) => {
-        const entry = commit((draft) => createService(draft, branchId, type, result.order.id, result.index, form.get('reason')), 'Đã tạo phiếu hậu mãi.')
+      onSubmit={async (form) => {
+        const entry = await commit((draft) => createService(draft, branchId, type, result.order.id, result.index, form.get('reason')), 'Đã tạo phiếu hậu mãi.')
         onCreated(entry.id)
       }}>
       <Field label={type === 'warranty' ? 'Mô tả lỗi' : 'Lý do đổi trả'}><textarea name="reason" rows={3} maxLength={240} required placeholder="Ghi nhận phản ánh của khách hàng…" /></Field>
@@ -171,7 +186,7 @@ function ServiceLookup({ type, data, branchId, commit, onClose, onCreated, initi
   </Modal>
 }
 
-function ServiceDetail({ item, order, data, branchId, commit, onClose }) {
+function ServiceDetail({ item, order, data, branchId, commit, onClose, permissions }) {
   const line = order?.lines[item.lineIndex]
   const device = data.devices.find((device) => device.id === line?.deviceId)
   const transition = {
@@ -189,8 +204,8 @@ function ServiceDetail({ item, order, data, branchId, commit, onClose }) {
     <ol className="history-list">{item.history.map((event, index) => <li key={index}>
       <span className="history-dot" /><div><strong>{serviceStatus[event.status][0]}</strong><small>{fullDay.format(new Date(event.date))} · {clock.format(new Date(event.date))}</small>{event.note && <p>{event.note}</p>}</div>
     </li>)}</ol>
-    {transition ? <ActionForm actionLabel={transition[1]} onClose={onClose} onSubmit={(form) => {
-      commit((draft) => updateService(draft, branchId, item.id, transition[0], form.get('note') ?? '', form.get('condition')), 'Đã cập nhật ' + item.id + '.')
+    {transition && permissions.includes(item.type === 'return' && transition[0] === 'approved' ? 'approve' : 'aftercare') ? <ActionForm actionLabel={transition[1]} onClose={onClose} onSubmit={async (form) => {
+      await commit((draft) => updateService(draft, branchId, item.id, transition[0], form.get('note') ?? '', form.get('condition')), 'Đã cập nhật ' + item.id + '.')
     }}>
       {transition[0] === 'returned' && <Field label="Tình trạng hàng nhận"><Select name="condition" label="Tình trạng hàng nhận">
         <option value="quarantine">Lỗi · chuyển cách ly</option><option value="available">Đạt kiểm tra · trả tồn khả dụng</option>
@@ -200,12 +215,13 @@ function ServiceDetail({ item, order, data, branchId, commit, onClose }) {
   </Modal>
 }
 
-export function AfterSales({ data, branchId, params, commit }) {
+export function AfterSales({ data, branchId, params, commit, permissions }) {
   const [type, setType] = useState('warranty')
   const [query, setQuery] = useState('')
   const [status, setStatus] = useState('all')
   const [lookup, setLookup] = useState(params.get('mode') === 'lookup')
   const [selected, setSelected] = useState(params.get('ticket'))
+  const [policiesOpen, setPoliciesOpen] = useState(false)
   const branchServices = data.services.filter((item) => item.branchId === branchId)
   const rows = branchServices.filter((item) => item.type === type && (status === 'all' || status === item.status))
     .map((item) => ({ item, order: data.orders.find((order) => order.id === item.orderId) }))
@@ -219,6 +235,7 @@ export function AfterSales({ data, branchId, params, commit }) {
   const statuses = type === 'warranty' ? ['received', 'processing', 'done'] : ['pending', 'approved', 'returned']
   return <>
     <PageHeading title="Bảo hành và đổi trả" description="Tra cứu giao dịch, tiếp nhận phiếu và theo dõi tiến trình xử lý.">
+      {permissions.includes('catalog') && <Button onClick={() => setPoliciesOpen(true)}>Chính sách bảo hành</Button>}
       <Button variant="primary" icon={type === 'warranty' ? ShieldPlus : ClipboardPlus} onClick={() => setLookup(true)}>
         {type === 'warranty' ? 'Tiếp nhận bảo hành' : 'Tạo phiếu đổi trả'}
       </Button>
@@ -248,7 +265,8 @@ export function AfterSales({ data, branchId, params, commit }) {
     {lookup && <ServiceLookup type={type} data={data} branchId={branchId} commit={commit} initialQuery={params.get('q')}
       onClose={() => setLookup(false)} onCreated={(id) => { setLookup(false); setSelected(id) }} />}
     {ticket && <ServiceDetail key={ticket.id} item={ticket} order={data.orders.find((order) => order.id === ticket.orderId)}
-      data={data} branchId={branchId} commit={commit} onClose={() => setSelected(null)} />}
+      data={data} branchId={branchId} commit={commit} permissions={permissions} onClose={() => setSelected(null)} />}
+    {policiesOpen && <Policies data={data} commit={commit} onClose={() => setPoliciesOpen(false)} />}
   </>
 }
 

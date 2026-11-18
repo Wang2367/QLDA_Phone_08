@@ -1,217 +1,131 @@
 import { useState } from 'react'
-import {
-  ArrowRight, BatteryFull, Box, ClipboardList, Eye, EyeOff, LogOut, ScanLine, Search,
-  Signal, Smartphone, Trash2, Wifi, WifiOff,
-} from 'lucide-react'
-import { Button, Field, PageHeading, PanelHeading, ProductName, Status } from './components.jsx'
-import { branchName, clock, demoAccount, deviceStatus, getProduct, isPhone, normalize, number, stock } from './data.js'
+import { ClipboardList, ScanLine, Wifi, WifiOff, LogOut, ArrowRight, Smartphone } from 'lucide-react'
+import { Button, Field, PageHeading, ProductName, Select, Status } from './components.jsx'
+import { branchName, deviceStatus, getProduct, isPhone, normalize, number } from './data.js'
+import { request, post, operationKey, finishOperation } from './api.js'
+import Counts from './counts.jsx'
+import { TransferDetail } from './operations.jsx'
 
-const steps = [
-  { id: 'login', code: 'M01', title: 'Đăng nhập', Icon: Smartphone },
-  { id: 'lookup', code: 'M02', title: 'Quét và tra cứu', Icon: ScanLine },
-  { id: 'count', code: 'M03', title: 'Đối chiếu kiểm kê', Icon: ClipboardList },
-]
-
-function findCode(data, branchId, value) {
-  const code = normalize(value)
-  const device = data.devices.find((item) => [item.serial, ...item.imeis].some((id) => normalize(id) === code))
-  if (device && device.branchId !== branchId) return { error: 'Thiết bị nằm ngoài chi nhánh đang chọn.' }
-  const product = device ? getProduct(data, device.productId) : data.products.find((item) => normalize(item.sku) === code)
-  if (!product) return { error: 'Không tìm thấy mã IMEI, SKU hoặc serial này.' }
-  return { product, device, available: stock(data, product.id, branchId).available }
-}
-
-function MobileLogin({ branchId, onLogin }) {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [visible, setVisible] = useState(false)
-  const [error, setError] = useState('')
-  return <div className="android-login">
-    <span className="android-logo"><Smartphone size={25} aria-hidden="true" /></span>
-    <h2>Đăng nhập</h2>
-    <p>Phiên Android tại chi nhánh {branchName(branchId)}.</p>
-    <form onSubmit={(event) => {
-      event.preventDefault()
-      if (username.trim() === demoAccount.username && password === demoAccount.password) onLogin()
-      else setError('Tài khoản hoặc mật khẩu chưa đúng.')
-    }}>
-      <Field label="Tài khoản Android"><input value={username} autoComplete="username" required
-        onChange={(event) => { setUsername(event.target.value); setError('') }} placeholder="Nhập tài khoản" /></Field>
-      <Field label="Mật khẩu Android"><span className="password-wrap">
-        <input value={password} type={visible ? 'text' : 'password'} autoComplete="current-password" required
-          onChange={(event) => { setPassword(event.target.value); setError('') }} placeholder="Nhập mật khẩu" />
-        <button type="button" aria-label={visible ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'} onClick={() => setVisible(!visible)}>
-          {visible ? <EyeOff size={17} /> : <Eye size={17} />}
-        </button>
-      </span></Field>
-      {error && <p className="form-error" role="alert">{error}</p>}
-      <Button variant="primary" type="submit" icon={ArrowRight}>Đăng nhập Android</Button>
-      <Button onClick={() => { setUsername(demoAccount.username); setPassword(demoAccount.password); setError('') }}>Điền tài khoản mẫu</Button>
-    </form>
-  </div>
-}
-
-function CodeForm({ label, buttonLabel, sample, onScan }) {
-  const [value, setValue] = useState('')
-  return <form className="android-code-form" onSubmit={(event) => {
-    event.preventDefault()
-    if (value.trim()) onScan(value)
-  }}>
-    <Field label={label}><input value={value} required autoComplete="off"
-      onChange={(event) => setValue(event.target.value)} placeholder="Nhập IMEI, SKU hoặc serial" /></Field>
-    <Button variant="primary" type="submit" icon={ScanLine}>{buttonLabel}</Button>
-    {sample && <button className="text-button" type="button" onClick={() => setValue(sample)}>Điền mã mẫu</button>}
-  </form>
-}
-
-function MobileLookup({ data, branchId, sample }) {
+export default function Mobile({ data, branchId, user, permissions, commit, standalone, logout, onBranch }) {
+  const key = 'phoneflow-count-server-v1:' + user.id + ':' + branchId
+  const [screen, setScreen] = useState('lookup')
+  const [query, setQuery] = useState('')
   const [result, setResult] = useState(null)
-  return <>
-    <h2>Quét và tra cứu</h2>
-    <p>Xem thiết bị và tồn kho theo mã tại chi nhánh.</p>
-    <CodeForm label="Mã tra cứu" buttonLabel="Tra cứu" sample={sample} onScan={(code) => setResult(findCode(data, branchId, code))} />
-    {result?.error && <p className="form-error" role="alert">{result.error}</p>}
-    {result?.product && <section className="android-result" aria-label="Kết quả tra cứu" aria-live="polite">
-      <ProductName product={result.product} />
-      <dl>
-        {result.device ? <>
-          <div><dt>Serial</dt><dd>{result.device.serial}</dd></div>
-          <div><dt>IMEI</dt><dd>{result.device.imeis.map((imei) => <span key={imei}>{imei}</span>)}</dd></div>
-          <div><dt>Trạng thái</dt><dd><Status value={deviceStatus[result.device.status]} /></dd></div>
-        </> : <div><dt>Tồn khả dụng</dt><dd>{number(result.available)}</dd></div>}
-      </dl>
-    </section>}
-  </>
-}
-
-function readDraft(key) {
-  try {
-    const draft = JSON.parse(localStorage.getItem(key))
-    if (Array.isArray(draft?.rows)) return draft
-  } catch { /* A mobile demo can start without browser storage. */ }
-  return { rows: [], savedAt: null }
-}
-
-function MobileCount({ data, branchId, sample }) {
-  const draftKey = 'phoneflow-android-count-v1:' + branchId
-  const [draft, setDraft] = useState(() => readDraft(draftKey))
-  const [message, setMessage] = useState(null)
+  const [offline, setOffline] = useState(!navigator.onLine)
+  const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [transferId, setTransferId] = useState(null)
+  const [draft, setDraft] = useState(() => {
+    try { const saved = JSON.parse(localStorage.getItem(key)); return Array.isArray(saved?.rows) ? saved : { rows: [] } } catch { return { rows: [] } }
+  })
   const [dirty, setDirty] = useState(false)
+  const transfer = data.transfers.find((t) => t.id === transferId)
+  const deviceSample = data.devices.find((d) => d.status === 'available')?.imeis[0]
+  const sample = deviceSample || data.products.find((p) => p.category === 'Phụ kiện')?.sku
 
-  function notify(text, error = false) {
-    setMessage({ text, error })
+  function saveLocal(next) {
+    localStorage.setItem(key, JSON.stringify(next))
+    setDirty(false)
   }
-
-  function addCount(code) {
-    const result = findCode(data, branchId, code)
-    if (result.error) return notify(result.error, true)
-    const { product, device, available } = result
-    if (isPhone(product) && device?.status !== 'available') {
-      return notify(device ? 'Thiết bị không ở trạng thái khả dụng.' : 'Nhập IMEI hoặc serial để kiểm kê từng điện thoại.', true)
-    }
-    const row = draft.rows.find((item) => item.productId === product.id)
-    if (device && row?.devices.includes(device.id)) return notify('Thiết bị này đã được quét, kể cả khi dùng IMEI khác.', true)
-
-    const updated = {
-      productId: product.id,
-      expected: row?.expected ?? available,
-      count: (row?.count ?? 0) + 1,
-      devices: [...(row?.devices ?? []), ...(device ? [device.id] : [])],
-    }
-    setDraft({ rows: row ? draft.rows.map((item) => item === row ? updated : item) : [...draft.rows, updated], savedAt: null })
-    setDirty(true)
-    notify('Đã ghi nhận một lượt quét.')
-  }
-
-  function save() {
-    const next = { ...draft, savedAt: new Date().toISOString() }
+  async function scan() {
+    if (!query.trim() || busy) return
+    setBusy(true); setError(''); setMessage('')
     try {
-      localStorage.setItem(draftKey, JSON.stringify(next))
-      setDraft(next)
-      setDirty(false)
-      notify('Đã lưu bản nháp tại ' + clock.format(new Date(next.savedAt)) + '.')
-    } catch {
-      notify('Trình duyệt chưa lưu được bản nháp. Bạn vẫn có thể xem số đã đếm trong tab này.', true)
-    }
+      let found
+      if (offline) {
+        const code = normalize(query)
+        const device = data.devices.find((d) => [d.serial, ...d.imeis].some((id) => normalize(id) === code))
+        const product = device ? getProduct(data, device.productId) : data.products.find((p) => normalize(p.sku) === code)
+        if (!product) throw new Error('Mã chưa có trong dữ liệu đã tải. Kết nối lại để tra máy chủ.')
+        found = { product, device, ...data.balances.find((b) => b.productId === product.id) }
+      } else found = await request('/lookup?q=' + encodeURIComponent(query.trim()))
+      setResult(found)
+      if (screen === 'count') {
+        const { product, device } = found
+        if (isPhone(product) && device?.status !== 'available') throw new Error('Quét IMEI của thiết bị khả dụng.')
+        const row = draft.rows.find((r) => r.productId === product.id)
+        if (device && row?.devices.includes(device.id)) throw new Error('Thiết bị đã quét, kể cả khi dùng IMEI khác.')
+        const nextRow = { productId: product.id, expected: row?.expected ?? found.available,
+          revision: row?.revision ?? found.revision, count: (row?.count ?? 0) + 1,
+          devices: [...(row?.devices || []), ...(device ? [device.id] : [])] }
+        const next = { rows: row ? draft.rows.map((r) => r === row ? nextRow : r) : [...draft.rows, nextRow] }
+        setDraft(next); setDirty(true); setMessage('Đã ghi một lượt quét.')
+      }
+    } catch (e) { setError(e.message) } finally { setBusy(false) }
   }
-
-  return <>
-    <h2>Đối chiếu kiểm kê</h2>
-    <p>So sánh số quét thực tế với tồn khả dụng.</p>
-    <CodeForm label="Mã kiểm kê" buttonLabel="Ghi nhận mã" sample={sample} onScan={addCount} />
-    {message && <p className={message.error ? 'form-error' : 'android-feedback'} role={message.error ? 'alert' : 'status'}>{message.text}</p>}
-    {draft.rows.length > 0 && <div className="android-count-list" aria-label="Số lượng kiểm kê">
-      {draft.rows.map((row) => {
-        const product = getProduct(data, row.productId)
-        const delta = row.count - row.expected
-        return <section className="android-result" key={row.productId}>
-          <div className="android-count-heading"><ProductName product={product} />
-            <button type="button" className="icon-button" aria-label={'Xóa dòng ' + (product?.name ?? row.productId)} onClick={() => {
-              setDraft({ rows: draft.rows.filter((item) => item !== row), savedAt: null })
-              setDirty(true)
-              setMessage(null)
-            }}><Trash2 size={16} /></button>
-          </div>
-          <div className="android-count-values"><span>Tồn dự kiến<strong>{number(row.expected)}</strong></span>
-            <span>Đã quét<strong>{number(row.count)}</strong></span><span>Chênh lệch<strong>{delta > 0 ? '+' : ''}{number(delta)}</strong></span>
-          </div>
-        </section>
-      })}
-    </div>}
-    <Button icon={ClipboardList} onClick={save} disabled={!dirty}>Lưu bản nháp</Button>
-    <p className="android-draft-note">{draft.savedAt ? 'Đã lưu lúc ' + clock.format(new Date(draft.savedAt)) + '. ' : ''}Bản nháp lưu trong trình duyệt. Sổ tồn chờ quy trình phê duyệt.</p>
-  </>
-}
-
-export default function AndroidPreview({ data, branchId }) {
-  const [screen, setScreen] = useState('login')
-  const [signedIn, setSignedIn] = useState(false)
-  const [online, setOnline] = useState(true)
-  const sample = data.devices.find((item) => item.branchId === branchId && item.status === 'available')?.imeis[0]
-    ?? data.products.find((product) => !isPhone(product))?.sku
-  const Network = online ? Wifi : WifiOff
-
-  return <>
-    <PageHeading title="Mobile Android" description="Thử ba màn hình Android của PhoneFlow với dữ liệu của chi nhánh đang chọn." />
-    <div className="android-layout">
-      <div className="android-stage">
-        <div className="android-phone">
-          <div className="android-status-bar" aria-hidden="true">
-            <span>09:41</span><i /><div><Signal size={12} /><Network size={13} /><BatteryFull size={16} /></div>
-          </div>
-          <header className="android-header">
-            <div><strong>PhoneFlow</strong><small>{branchName(branchId)}</small></div>
-            {signedIn && <button type="button" className="icon-button" aria-label="Đăng xuất Android" onClick={() => { setSignedIn(false); setScreen('login') }}><LogOut size={17} /></button>}
-          </header>
-          <div className="android-content">
-            {!online && <div className="android-offline"><WifiOff size={15} />Mất mạng mô phỏng · dữ liệu lưu trên thiết bị.</div>}
-            {screen === 'login' && <MobileLogin branchId={branchId} onLogin={() => { setSignedIn(true); setScreen('lookup') }} />}
-            {screen === 'lookup' && <MobileLookup data={data} branchId={branchId} sample={sample} />}
-            {signedIn && <div hidden={screen !== 'count'}><MobileCount data={data} branchId={branchId} sample={sample} /></div>}
-          </div>
-          {signedIn && <nav className="android-nav" aria-label="Điều hướng Android">
-            <button type="button" aria-current={screen === 'lookup' ? 'page' : undefined} onClick={() => setScreen('lookup')}><Search size={17} />Tra cứu</button>
-            <button type="button" aria-current={screen === 'count' ? 'page' : undefined} onClick={() => setScreen('count')}><Box size={17} />Kiểm kê</button>
-          </nav>}
-          <div className="android-gesture" aria-hidden="true"><i /></div>
-        </div>
+  async function sendCount() {
+    setError(''); setMessage('')
+    if (offline) { setError('Kết nối lại để gửi phiếu lên máy chủ.'); return }
+    setBusy(true)
+    try {
+      const action = JSON.stringify(['mobile-count', branchId, draft.rows])
+      const key = operationKey(action)
+      const count = await post('/counts', { rows: draft.rows, note: 'Kiểm kê từ Mobile Web' }, { key: key + ':create' })
+      await commit(() => post('/counts/' + count.id + '/submit', {}, { key: key + ':submit' }), 'Đã gửi ' + count.id + ' chờ duyệt.')
+      finishOperation(action)
+      const empty = { rows: [] }
+      setDraft(empty); saveLocal(empty); setMessage('Đã gửi ' + count.id + ' chờ duyệt.'); setResult(null)
+    } catch (e) { setError(e.message) } finally { setBusy(false) }
+  }
+  const body = <div className="android-phone">
+    <header className="android-header"><div><strong>PhoneFlow Mobile</strong><small>{user.name} · {branchName(branchId)}</small></div>
+      {standalone && <button type="button" className="icon-button" aria-label="Đăng xuất" onClick={logout}><LogOut size={17} /></button>}
+    </header>
+    {standalone && <Select label="Chi nhánh Mobile" value={branchId} onChange={(e) => onBranch(e.target.value)}>
+      {user.branches.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
+    </Select>}
+    <div className="android-content">
+      <div className="mobile-network-row"><span>{offline ? 'Đang mất mạng' : 'Đã kết nối API'}</span>
+        <button className="icon-button" aria-label="Mô phỏng kết nối" onClick={() => setOffline(!offline)}>{offline ? <WifiOff size={17} /> : <Wifi size={17} />}</button>
       </div>
-      <section className="panel android-control-panel">
-        <PanelHeading title="Màn hình Android" description={signedIn ? 'Phiên mẫu của ' + demoAccount.name : 'Đăng nhập mẫu để thử tra cứu và kiểm kê.'} />
-        <div className="android-step-list">
-          {steps.map(({ id, code, title, Icon }) => <button type="button" key={id} disabled={id !== 'login' && !signedIn}
-            aria-pressed={screen === id} onClick={() => setScreen(id)}>
-            <span className="metric-icon mint"><Icon size={18} aria-hidden="true" /></span>
-            <span><small>{code}</small><strong>{title}</strong></span>
-            <ArrowRight size={16} aria-hidden="true" />
-          </button>)}
+      {['lookup', 'count'].includes(screen) && <>
+        <h2>{screen === 'lookup' ? 'Quét và tra cứu' : 'Đối chiếu kiểm kê'}</h2>
+        <form className="android-code-form" onSubmit={(e) => { e.preventDefault(); scan() }}>
+          <Field label={screen === 'lookup' ? 'Mã tra cứu' : 'Mã kiểm kê'}><input required value={query} onChange={(e) => setQuery(e.target.value)} placeholder="IMEI, SKU hoặc serial" /></Field>
+          <Button variant="primary" type="submit" icon={ScanLine} disabled={busy}>{busy ? 'Đang xử lý…' : screen === 'count' ? 'Ghi nhận mã' : 'Tra cứu'}</Button>
+          <button type="button" className="text-button" onClick={() => setQuery(sample || '')}>Điền mã mẫu</button>
+        </form>
+      </>}
+      {error && <p className="form-error" role="alert">{error}</p>}
+      {message && <p className="android-feedback" role="status">{message}</p>}
+      {result && screen === 'lookup' && <section className="android-result" aria-label="Kết quả tra cứu"><ProductName product={result.product} />
+        {result.device && <dl><div><dt>Serial</dt><dd>{result.device.serial}</dd></div><div><dt>IMEI</dt><dd>{result.device.imeis.map((i) => <span key={i}>{i}</span>)}</dd></div>
+          <div><dt>Trạng thái</dt><dd><Status value={deviceStatus[result.device.status]} /></dd></div></dl>}
+        {!result.device && <p>Khả dụng: {number(result.available)}</p>}
+        {offline && <small>Dữ liệu đã tải trước khi mất mạng.</small>}
+      </section>}
+      {screen === 'count' && <>
+        {draft.rows.map((row) => <section className="android-result" key={row.productId}><ProductName product={getProduct(data, row.productId)} />
+          <div className="android-count-values"><span>Dự kiến<strong>{row.expected}</strong></span><span>Đã quét<strong>{row.count}</strong></span><span>Chênh lệch<strong>{row.count - row.expected}</strong></span></div>
+          <Button onClick={() => { setDraft({ rows: draft.rows.filter((r) => r !== row) }); setDirty(true) }}>Xóa dòng</Button>
+        </section>)}
+        <div className="form-actions"><Button disabled={!dirty} onClick={() => { try { saveLocal(draft); setMessage('Đã lưu bản nháp trên thiết bị.') } catch { setError('Chưa lưu được bản nháp.') } }}>Lưu nháp</Button>
+          <Button variant="primary" disabled={busy || !draft.rows.length || offline} onClick={sendCount}>Gửi duyệt</Button></div>
+        <p className="android-draft-note">Nếu tồn thay đổi, đối chiếu lại mã và số lượng trước khi lập phiếu mới.</p>
+        <Button onClick={() => { setDraft({ rows: [] }); setDirty(true); setError(''); setResult(null) }}>Đếm lại</Button>
+      </>}
+      {screen === 'counts' && <Counts data={data} commit={commit} permissions={permissions} />}
+      {screen === 'receive' && <>
+        <h2>Nhận điều chuyển</h2>
+        <div className="device-list">{data.transfers.filter((t) => t.to === branchId && t.status !== 'received').map((t) =>
+          <button className="device-option" key={t.id} onClick={() => setTransferId(t.id)}><span><strong>{t.id}</strong><small>{branchName(t.from)} · {t.qty} sản phẩm</small></span><ArrowRight size={16} /></button>)}
         </div>
-        <div className="android-network">
-          <div><Network size={18} aria-hidden="true" /><div><strong>Kết nối mô phỏng</strong><small>{online ? 'Đang kết nối' : 'Đang mất mạng'}</small></div></div>
-          <button className="android-toggle" type="button" role="switch" aria-label="Kết nối mô phỏng" aria-checked={online} onClick={() => setOnline(!online)}><span /></button>
-        </div>
-      </section>
+        {!data.transfers.some((t) => t.to === branchId && t.status !== 'received') && <p className="muted small">Chưa có phiếu nhận đang mở.</p>}
+      </>}
     </div>
+    <nav className="android-nav" aria-label="Điều hướng Mobile">
+      {[
+        ['lookup', 'Tra cứu', ScanLine, true], ['count', 'Đếm', ClipboardList, permissions.includes('stock')],
+        ['counts', 'Phiếu đếm', ClipboardList, permissions.includes('stock')], ['receive', 'Nhận hàng', Smartphone, permissions.includes('stock')],
+      ].filter((s) => s[3]).map(([id, label, Icon]) => <button key={id} type="button" aria-current={screen === id ? 'page' : undefined}
+        onClick={() => { setScreen(id); setError(''); setMessage(''); setResult(null) }}><Icon size={17} />{label}</button>)}
+    </nav>
+  </div>
+  return <>
+    {!standalone && <PageHeading title="Mobile Web" description="Dùng chung API và dữ liệu SQL Server với Web."><a className="button secondary" href="/mobile" target="_blank" rel="noreferrer">Mở Mobile riêng</a></PageHeading>}
+    <div className={standalone ? 'mobile-full' : 'android-layout'}><div className="android-stage">{body}</div></div>
+    {transfer && <TransferDetail item={transfer} data={data} product={getProduct(data, transfer.productId)} branchId={branchId} commit={commit} permissions={permissions} onClose={() => setTransferId(null)} />}
   </>
 }
 

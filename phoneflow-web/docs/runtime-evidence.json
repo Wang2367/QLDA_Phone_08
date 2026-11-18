@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-18T03:19:10.581Z",
+  "node": "v24.14.1",
+  "platform": "win32",
+  "sqlServer": {
+    "instance": "WANGWIII\\SQLEXPRESS",
+    "version": "17.0.1145.4"
+  },
+  "persistedDevice": {
+    "id": "77fdce5d-0758-4396-8b1b-cd6d8238b052",
+    "serial": "G5-UI-001",
+    "status": "sold",
+    "imei": "869000000000101"
+  },
+  "summary": {
+    "sales": 311,
+    "devices": 277,
+    "auditEvents": 73,
+    "stockCounts": 5
+  },
+  "lookup": {
+    "concurrentRequests": 30,
+    "successful": 30,
+    "p95Ms": 179,
+    "maxMs": 180,
+    "timingsMs": [
+      161,
+      162,
+      163,
+      163,
+      166,
+      167,
+      168,
+      169,
+      170,
+      170,
+      170,
+      170,
+      171,
+      172,
+      173,
+      173,
+      174,
+      175,
+      176,
+      176,
+      176,
+      176,
+      177,
+      177,
+      177,
+      178,
+      178,
+      178,
+      179,
+      180
+    ]
+  },
+  "notes": "Kiểm tra kỹ thuật trên localhost, cùng một máy chạy API và SQL Server. Nhóm 6 xác nhận cấu hình và thử tải chính thức."
+}

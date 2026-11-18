@@ -1,0 +1,33 @@
+
+> phoneflow-group5@2.0.0 test
+> node --test --test-concurrency=1 tests/integration.test.mjs tests/reports.test.mjs
+
+▶ Nhóm 5 SQL/API integration
+  ✔ SQL connection and branch authorization (148.8565ms)
+  ✔ Dual IMEI and complete rollback on duplicate (924.7189ms)
+  ✔ Failed payment preserves stock; concurrent sale and repeat confirmation (729.0684ms)
+  ✔ Overselling quantity rolls back every line (350.7514ms)
+  ✔ Warranty policy, state history and approved quarantine return (559.3184ms)
+  ✔ Transfer discrepancy, reconciliation, branch rights and single receipt (863.9903ms)
+  ✔ Counts require approval and detect stock changed since counting (741.2988ms)
+  ✔ Ledger and dashboard reconcile directly to SQL (232.3855ms)
+  ✔ Catalog updates preserve historical price and policy; archive blocks new use (356.7882ms)
+  ✔ Logout invalidates the server session (13.3775ms)
+✔ Nhóm 5 SQL/API integration (5281.0596ms)
+✔ A12 dates use Bangkok calendar and exact half-open periods (2.2934ms)
+✔ A12 chart buckets preserve totals and date labels for 7, 30, 90 days (0.6234ms)
+▶ A12 four report types, SQL totals, filtering and permissions
+  ✔ sales keeps daily compatibility and separates both exact periods (22.0692ms)
+  ✔ inventory is current stock and reports both directions without double counting available (15.4375ms)
+  ✔ in-transit includes moving/review, remaining quantity and selected branch only (18.7964ms)
+  ✔ warranty filters ticket creation date and sums each status (12.0311ms)
+  ✔ unsupported type, invalid days, missing role and wrong branch are rejected (229.5029ms)
+✔ A12 four report types, SQL totals, filtering and permissions (708.3339ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6459.6067
